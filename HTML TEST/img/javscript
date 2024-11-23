@@ -1,0 +1,38 @@
+**javascript 
+
+. A Simple Counter
+javascript
+Copy code
+let count = 0;
+
+function increment() {
+    count++;
+    console.log("Count:", count);
+}
+
+function decrement() {
+    count--;
+    console.log("Count:", count);
+}
+
+increment();
+decrement();
+2. Fetch API Example
+javascript
+Copy code
+fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+3. Event Listener
+javascript
+Copy code
+document.getElementById("button").addEventListener("click", function() {
+    alert("Button clicked!");
+});
+4. Basic DOM Manipulation
+javascript
+Copy code
+const para = document.createElement("p");
+para.textContent = "This is a dynamically added paragraph.";
+document.body.appendChild(para);
