@@ -1,0 +1,51 @@
+const { MongoClient } = require('mongodb');
+
+const uri = "mongodb://localhost:27017";
+const client = new MongoClient(uri);
+
+async function connectDB() {
+    try {
+        await client.connect();
+        console.log("Connected to MongoDB");
+        const db = client.db("stickerStore");
+        return db;
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+    }
+}
+
+connectDB();
+
+async function addSticker(db, sticker) {
+    const collection = db.collection("stickers");
+    const result = await collection.insertOne(sticker);
+    console.log("Sticker added:", result.insertedId);
+}
+
+// Example usage
+connectDB().then(db => {
+    addSticker(db, { name: "Cool Cat", price: 1.00, image: "cool_cat.png" });
+});
+
+
+async function getStickers(db) {
+    const collection = db.collection("stickers");
+    const stickers = await collection.find().toArray();
+    console.log("Stickers:", stickers);
+    return stickers;
+}
+
+// Example usage
+connectDB().then(db => {
+    getStickers(db);
+});
+
+async function addToCart(db, stickerId) {
+    const collection = db.collection("cart");
+    const result = await collection.insertOne({ stickerId });
+    console.log("Added to cart:", result.insertedId);
+}
+
+connectDB().then(db => {
+    addToCart(db, "sticker_id_example");
+});
