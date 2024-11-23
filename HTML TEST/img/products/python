@@ -1,0 +1,33 @@
+Python Snippets
+1. Flask "Hello, World" App
+python
+Copy code
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+2. Basic CRUD with Flask
+python
+Copy code
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+data = []
+
+@app.route('/items', methods=['GET', 'POST'])
+def manage_items():
+    if request.method == 'POST':
+        item = request.json.get('item')
+        data.append(item)
+        return jsonify({"message": "Item added!", "data": data})
+    return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
