@@ -46,12 +46,12 @@ Welcome to **Imparable Things**, where creativity meets affordability! Discover 
 
 
 
-![Home Page](#)  
+## **HOME PAGE**
 *A sneak peek of our vibrant home page.*
 ![image](https://github.com/user-attachments/assets/70b0ccc8-e3ad-4663-aa01-203000ff63f0)
 
 
-![Sticker Designs](#)  
+## **Sticker Design**
 * Browse our unique and affordable sticker collection.*
   ![image](https://github.com/user-attachments/assets/bba5dc2c-a972-4349-86a0-777a9d7a7a87)
 
