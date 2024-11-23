@@ -1,0 +1,35 @@
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Dummy data for stickers
+stickers = [
+    {"id": 1, "name": "Cool Cat", "price": 1.00, "image": "cat_sticker.jpg"},
+    {"id": 2, "name": "Smiley Face", "price": 0.75, "image": "smiley_sticker.jpg"},
+    {"id": 3, "name": "Rocket Ship", "price": 0.50, "image": "rocket_sticker.jpg"}
+]
+
+cart = []
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+@app.route('/shop')
+def shop():
+    return render_template("shop.html", stickers=stickers)
+
+@app.route('/add_to_cart/<int:sticker_id>')
+def add_to_cart(sticker_id):
+    sticker = next((s for s in stickers if s["id"] == sticker_id), None)
+    if sticker:
+        cart.append(sticker)
+    return redirect(url_for("shop"))
+
+@app.route('/checkout')
+def checkout():
+    total = sum(item["price"] for item in cart)
+    return render_template("checkout.html", cart=cart, total=total)
+
+if __name__ == '__main__':
+    app.run(debug=True)
