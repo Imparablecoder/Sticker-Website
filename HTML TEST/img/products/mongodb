@@ -1,0 +1,51 @@
+MongoDB Snippets
+1. Connecting to MongoDB
+python
+Copy code
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost:27017/')
+db = client['testdb']
+collection = db['testcollection']
+
+print("Connected to MongoDB!")
+2. Inserting and Fetching Data
+python
+Copy code
+# Insert a document
+collection.insert_one({"name": "John", "age": 30, "city": "New York"})
+
+# Fetch all documents
+for doc in collection.find():
+    print(doc)
+3. Updating a Document
+python
+Copy code
+collection.update_one({"name": "John"}, {"$set": {"age": 31}})
+print("Document updated!")
+Combined Example: Flask with MongoDB
+python
+Copy code
+from flask import Flask, request, jsonify
+from pymongo import MongoClient
+
+app = Flask(__name__)
+
+# MongoDB setup
+client = MongoClient('mongodb://localhost:27017/')
+db = client['stickers']
+collection = db['stickers_collection']
+
+@app.route('/stickers', methods=['POST', 'GET'])
+def stickers():
+    if request.method == 'POST':
+        sticker = request.json
+        collection.insert_one(sticker)
+        return jsonify({"message": "Sticker added!"}), 201
+
+    if request.method == 'GET':
+        stickers = list(collection.find({}, {"_id": 0}))
+        return jsonify(stickers)
+
+if __name__ == '__main__':
+    app.run(debug=True)
